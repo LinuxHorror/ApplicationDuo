@@ -7,10 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -29,10 +26,16 @@ public class RegistrationController {
     }
 
     @PostMapping("/save")
-    public ModelAndView validPage(@Valid @ModelAttribute("newUser") UserCreationDto user, BindingResult bindingResult) {
+    public ModelAndView validPage(@Valid @ModelAttribute("newUser") UserCreationDto user,
+                                  @RequestParam("checkPassword") String checkPass,
+                                  BindingResult bindingResult) {
         var modelAndView = new ModelAndView("registration");
-        if(!bindingResult.hasFieldErrors()){
-            return new ModelAndView("redirect:/enter");
+        if (!bindingResult.hasFieldErrors()) {
+            if (user.getPassword().equals(checkPass)) {
+                return new ModelAndView("redirect:/enter");
+            }else {
+                modelAndView.addObject("check", false);
+            }
         }
         return modelAndView;
     }
