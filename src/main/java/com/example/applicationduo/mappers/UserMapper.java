@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 import java.util.List;
 
 @Mapper(
-        componentModel = "string"
+        componentModel = "spring"
 )
 public interface UserMapper {
     @Mapping(target = "username", source = "username")
