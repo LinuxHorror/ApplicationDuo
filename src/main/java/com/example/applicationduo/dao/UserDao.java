@@ -3,6 +3,7 @@ package com.example.applicationduo.dao;
 import com.example.applicationduo.entity.UserEntity;
 import com.example.applicationduo.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 
+@Repository
 public class UserDao {
     private final UserRepository repository;
 
