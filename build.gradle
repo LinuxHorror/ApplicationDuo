@@ -22,13 +22,28 @@ repositories {
 }
 
 dependencies {
+    //Starters
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'org.postgresql:postgresql'
-    annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // Tomcat
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+
+    // Postgres
+    runtimeOnly 'org.postgresql:postgresql'
+
+    // Validation
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+    implementation group: 'org.hibernate', name: 'hibernate-validator', version: '8.0.1.Final'
+
+    // Lombok and mapstruct
+    implementation "org.mapstruct:mapstruct:1.5.3.Final"
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
+    annotationProcessor "org.mapstruct:mapstruct-processor:1.5.3.Final"
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('bootBuildImage') {
