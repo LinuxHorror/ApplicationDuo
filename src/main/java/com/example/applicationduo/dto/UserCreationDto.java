@@ -1,9 +1,14 @@
 package com.example.applicationduo.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.UUID;
 @Data
@@ -16,7 +21,11 @@ public class UserCreationDto {
 
     private String username;
 
+    @Email(message = "wrong email")
+    @NotBlank(message = "empty email")
     private String email;
 
+    @NotBlank(message = "empty password")
+    @Length(max = 15, message = "length of should be < 15")
     private String password;
 }
