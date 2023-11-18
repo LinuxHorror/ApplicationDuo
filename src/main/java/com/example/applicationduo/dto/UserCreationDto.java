@@ -11,8 +11,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class UserCreationDto {
+
     private UUID id;
+
     private String username;
+
     private String email;
+
     private String password;
 }

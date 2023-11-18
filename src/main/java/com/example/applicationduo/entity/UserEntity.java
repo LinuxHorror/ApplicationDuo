@@ -21,13 +21,19 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     private String username;
+
     private String email;
+
     private String password;
+
     @CreationTimestamp
     private Date dateOfCreation;
+
     @UpdateTimestamp
     private Date dateOfUpdate;
+
     @Version
     private Integer version;
 }
