@@ -28,5 +28,6 @@ public class UserEntity {
     private Date dateOfCreation;
     @UpdateTimestamp
     private Date dateOfUpdate;
+    @Version
     private Integer version;
 }
