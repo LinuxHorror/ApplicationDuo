@@ -20,6 +20,13 @@
         <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect data</p>
     </label>
     <br><br>
+    <label>
+        <input type="password" placeholder="Repeat password" name="checkPassword">
+        <p th:if="${check} == false">
+            Passwords are not match
+        </p>
+    </label>
+    <br><br>
     <button type="submit">Create Account</button>
 </form>
 <footer></footer>
