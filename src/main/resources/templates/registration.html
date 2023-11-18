@@ -9,13 +9,13 @@
 <body>
 
 <header></header>
-<form th:action="@{/registration}" method="post">
+<form th:method="post" th:action="@{/enter}" th:object="${newUser}">
     <label>
-        <input type="text" placeholder="E-mail" name="email">
+        <input type="text" placeholder="E-mail" name="email" th:field="*{email}">
     </label>
     <br><br>
     <label>
-        <input type="password" placeholder="Password" name="password">
+        <input type="password" placeholder="Password" name="password" th:field="*{password}">
     </label>
     <br><br>
     <button type="submit">Create Account</button>
