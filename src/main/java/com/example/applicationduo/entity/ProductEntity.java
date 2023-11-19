@@ -34,19 +34,4 @@ public class ProductEntity {
 
     @Version
     private Integer version;
-
-    public ProductEntity setProductTitle(String productTitle) {
-        this.productTitle = productTitle;
-        return this;
-    }
-
-    public ProductEntity setDescription(String description) {
-        this.description = description;
-        return this;
-    }
-
-    public ProductEntity setPrice(Float price) {
-        this.price = price;
-        return this;
-    }
 }

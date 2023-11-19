@@ -4,6 +4,7 @@ import com.example.applicationduo.dto.ProductDto;
 import com.example.applicationduo.entity.ProductEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
@@ -25,5 +26,8 @@ public interface ProductMapper {
 
     List<ProductEntity> toListEntity(List<ProductDto> dtos);
     List<ProductDto> toListDto(List<ProductEntity> entities);
+
+    @Mapping(target = "id", ignore = true)
+    void update(@MappingTarget ProductEntity entity, ProductDto dto);
 
 }
