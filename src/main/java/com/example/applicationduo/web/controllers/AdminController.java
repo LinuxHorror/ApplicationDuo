@@ -48,13 +48,12 @@ public class AdminController {
         return new ProductDto();
     }*/
     @PostMapping("/save")
-    public String save(@Valid @ModelAttribute(name = "newProduct") ProductDto product,
+    public ModelAndView save(@Valid @ModelAttribute(name = "newProduct") ProductDto product,
                        BindingResult result) {
-
         if (!result.hasFieldErrors()) {
             productService.save(productMapper.toEntity(product));
-            return "redirect:/admin";
+            return new ModelAndView("redirect:/admin");
         }
-        return "adminPage";
+        return getTotalPage(product);
     }
 }
