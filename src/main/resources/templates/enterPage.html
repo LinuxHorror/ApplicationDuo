@@ -7,7 +7,7 @@
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-<form th:method="post" th:action="@{/enter/save}" th:object="${newUser}">
+<form th:method="post" th:action="@{/enter/submit}" th:object="${newUser}">
     <label>
         <input type="email" placeholder="E-mail" name="email" th:field="*{email}">
         <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect data</p>

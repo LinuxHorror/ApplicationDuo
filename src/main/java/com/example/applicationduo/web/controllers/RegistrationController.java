@@ -1,6 +1,6 @@
-package com.example.applicationduo.web;
+package com.example.applicationduo.web.controllers;
 
-import com.example.applicationduo.dao.UserDao;
+import com.example.applicationduo.dao.UserService;
 import com.example.applicationduo.dto.UserCreationDto;
 import com.example.applicationduo.mappers.UserMapper;
 import jakarta.validation.Valid;
@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequiredArgsConstructor
 public class RegistrationController {
 
-    private final UserDao userDao;
+    private final UserService service;
     private final UserMapper userMapper;
 
 
@@ -32,6 +32,7 @@ public class RegistrationController {
         var modelAndView = new ModelAndView("registration");
         if (!bindingResult.hasFieldErrors()) {
             if (user.getPassword().equals(checkPass)) {
+                service.save(userMapper.toEntity(user));
                 return new ModelAndView("redirect:/enter");
             }else {
                 modelAndView.addObject("check", false);

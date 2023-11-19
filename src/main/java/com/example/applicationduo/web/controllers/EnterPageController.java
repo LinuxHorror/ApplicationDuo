@@ -1,7 +1,7 @@
-package com.example.applicationduo.web;
+package com.example.applicationduo.web.controllers;
 
 
-import com.example.applicationduo.dao.UserDao;
+import com.example.applicationduo.dao.UserService;
 import com.example.applicationduo.dto.UserCreationDto;
 import com.example.applicationduo.mappers.UserMapper;
 import jakarta.validation.Valid;
@@ -21,17 +21,17 @@ import org.springframework.web.servlet.ModelAndView;
 public class EnterPageController {
 
     private final UserMapper userMapper;
-    private final UserDao repository;
+    private final UserService service;
     @GetMapping
     public ModelAndView getMainPage(@ModelAttribute("newUser") UserCreationDto dto){
         return new ModelAndView("enterPage");
     }
 
-    @PostMapping("/save")
+    @PostMapping("/submit")
     public ModelAndView enterData(@Valid @ModelAttribute("newUser") UserCreationDto dto, BindingResult result){
         var model = new ModelAndView("enterPage");
         if(!result.hasFieldErrors()){
-            // TODO DAO
+            //TODO CHECK
             model.addObject("newUser", new UserCreationDto());
         }
         return model;
