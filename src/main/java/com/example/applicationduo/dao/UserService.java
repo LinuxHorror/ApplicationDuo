@@ -1,5 +1,6 @@
 package com.example.applicationduo.dao;
 
+import com.example.applicationduo.dto.UserCreationDto;
 import com.example.applicationduo.entity.UserEntity;
 import com.example.applicationduo.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,12 @@ public class UserService {
     }
     public void deleteById(UUID id){
         repository.deleteById(id);
+    }
+
+    public boolean isExistsInDb(UserCreationDto dto){
+        return repository
+                .findByEmailAndPassword(dto.getEmail(), dto.getPassword())
+                .isPresent();
     }
 
 }
