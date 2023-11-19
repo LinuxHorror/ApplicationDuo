@@ -57,12 +57,15 @@
 <div class="addProduct">
   <label>
     <input type="text" name="productName" placeholder="Наименование товара" th:field="*{productTitle}">
+    <p th:if="${#fields.hasErrors('productTitle')}" th:errors="*{productTitle}">Incorrect data</p>
   </label>
   <label>
     <input type="text" name="productDescr" placeholder="Описание товара" th:field="*{description}">
+    <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Incorrect data</p>
   </label>
   <label>
     <input type="text" name="productPrice" placeholder="Цена товара" th:field="*{price}">
+    <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Incorrect data</p>
   </label>
   <button type="submit">Добавить</button>
 </div>

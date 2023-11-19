@@ -16,11 +16,11 @@ import java.util.UUID;
 public class ProductDto {
     private UUID id;
 
-    @NotBlank
+    @NotBlank(message = "empty product title")
     private String productTitle;
-    @NotBlank
+    @NotBlank(message = "empty description")
     private String description;
-    @NotBlank
+    @NotNull(message = "empty price")
     private Float price;
 
 

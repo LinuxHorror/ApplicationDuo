@@ -53,6 +53,7 @@ public class AdminController {
 
         if (!result.hasFieldErrors()) {
             productService.save(productMapper.toEntity(product));
+            return "redirect:/admin";
         }
         return "adminPage";
     }
