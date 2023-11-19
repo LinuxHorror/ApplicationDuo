@@ -41,15 +41,6 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PostMapping("/update/{id}")
-    public String updateProduct(@PathVariable(name = "id") Integer id,
-                                ProductDto updated
-    ) {
-        productService.update(id, updated);
-        return "adminPage";
-
-    }
-
     /*@ModelAttribute(name = "newProduct")
     public ProductDto productDto(){
         return new ProductDto();
