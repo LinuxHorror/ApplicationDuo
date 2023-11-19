@@ -12,7 +12,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 
 @Repository
-public class UserDao {
+public class UserService {
     private final UserRepository repository;
 
     public void save(UserEntity user){
