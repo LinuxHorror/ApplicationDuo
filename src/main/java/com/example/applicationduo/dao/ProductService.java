@@ -1,8 +1,10 @@
 package com.example.applicationduo.dao;
 
+import com.example.applicationduo.dto.ProductDto;
 import com.example.applicationduo.entity.ProductEntity;
 import com.example.applicationduo.entity.UserEntity;
 import com.example.applicationduo.repositories.ProductRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -23,5 +25,12 @@ public class ProductService {
     }
     public void deleteById(UUID id){
         repository.deleteById(id);
+    }
+    @Transactional
+    public ProductEntity update(UUID id, ProductDto dto){
+        return repository.getReferenceById(id)
+                .setName(dto.getName())
+                .setPrice(dto.getPrice())
+                .setDescription(dto.getDescription());
     }
 }
