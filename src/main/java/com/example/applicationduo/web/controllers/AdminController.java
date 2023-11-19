@@ -26,7 +26,7 @@ public class AdminController {
     private final ProductMapper productMapper;
 
     @GetMapping
-    public ModelAndView getTotalPage(@ModelAttribute("newProduct") ProductDto productDto){
+    public ModelAndView getTotalPage(@ModelAttribute("newProduct") ProductDto productDto) {
         ModelAndView modelAndView = new ModelAndView("adminPage");
         modelAndView.addObject("users", userMapper.toListDto(userService.findAll()));
         modelAndView.addObject("products", productMapper.toListDto(productService.findAll()));
@@ -36,11 +36,20 @@ public class AdminController {
     @PostMapping("/updateProduct/{id}")
     public String update(@Valid @ModelAttribute("newProduct") ProductDto dto,
                          BindingResult bindingResult,
-                         @PathVariable("id") UUID id){
-        if(!bindingResult.hasFieldErrors()){
+                         @PathVariable("id") Integer id) {
+        if (!bindingResult.hasFieldErrors()) {
             productService.update(id, dto);
         }
         return "adminPage";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateProduct(@PathVariable(name = "id") Integer id,
+                                ProductDto updated
+    ) {
+        productService.update(id, updated);
+        return "adminPage";
+
     }
 
     /*@ModelAttribute(name = "newProduct")
@@ -49,7 +58,7 @@ public class AdminController {
     }*/
     @PostMapping("/save")
     public ModelAndView save(@Valid @ModelAttribute(name = "newProduct") ProductDto product,
-                       BindingResult result) {
+                             BindingResult result) {
         if (!result.hasFieldErrors()) {
             productService.save(productMapper.toEntity(product));
             return new ModelAndView("redirect:/admin");

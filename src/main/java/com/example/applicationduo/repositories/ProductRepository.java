@@ -4,8 +4,8 @@ import com.example.applicationduo.entity.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
-import java.util.UUID;
 
-public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
+
+public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
     Optional<ProductEntity> findByProductTitle(String name);
 }

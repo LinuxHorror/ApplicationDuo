@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
 
 @RequiredArgsConstructor
 @Repository
@@ -23,14 +23,14 @@ public class ProductService {
     public List<ProductEntity> findAll(){
         return repository.findAll();
     }
-    public Optional<ProductEntity> getById(UUID id){
+    public Optional<ProductEntity> getById(Integer id){
         return repository.findById(id);
     }
-    public void deleteById(UUID id){
+    public void deleteById(Integer id){
         repository.deleteById(id);
     }
     @Transactional
-    public ProductEntity update(UUID id, ProductDto dto){
+    public ProductEntity update(Integer id, ProductDto dto){
         return repository.getReferenceById(id)
                 .setProductTitle(dto.getProductTitle())
                 .setPrice(dto.getPrice())
