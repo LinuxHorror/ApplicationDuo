@@ -20,7 +20,7 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private String name;
+    private String productTitle;
 
     private String description;
 
@@ -35,8 +35,8 @@ public class ProductEntity {
     @Version
     private Integer version;
 
-    public ProductEntity setName(String name) {
-        this.name = name;
+    public ProductEntity setProductTitle(String productTitle) {
+        this.productTitle = productTitle;
         return this;
     }
 

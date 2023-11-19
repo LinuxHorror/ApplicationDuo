@@ -26,7 +26,7 @@ public class AdminController {
     private final ProductMapper productMapper;
 
     @GetMapping
-    public ModelAndView getTotalPage(){
+    public ModelAndView getTotalPage(@ModelAttribute("newProduct") ProductDto productDto){
         ModelAndView modelAndView = new ModelAndView("adminPage");
         modelAndView.addObject("users", userMapper.toListDto(userService.findAll()));
         modelAndView.addObject("products", productMapper.toListDto(productService.findAll()));

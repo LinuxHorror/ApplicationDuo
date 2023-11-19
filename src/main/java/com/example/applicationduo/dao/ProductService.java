@@ -32,7 +32,7 @@ public class ProductService {
     @Transactional
     public ProductEntity update(UUID id, ProductDto dto){
         return repository.getReferenceById(id)
-                .setName(dto.getProductTitle())
+                .setProductTitle(dto.getProductTitle())
                 .setPrice(dto.getPrice())
                 .setDescription(dto.getDescription());
     }

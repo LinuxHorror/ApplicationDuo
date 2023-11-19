@@ -53,16 +53,16 @@
 </div>
 
 
-<form th:method="post" th:action="" th:object="${newProduct}">
+<form th:method="post" th:action="@{/admin/save}" th:object="${newProduct}">
 <div class="addProduct">
   <label>
-    <input type="text" name="productName" placeholder="Наименование товара">
+    <input type="text" name="productName" placeholder="Наименование товара" th:field="*{productTitle}">
   </label>
   <label>
-    <input type="text" name="productDescr" placeholder="Описание товара">
+    <input type="text" name="productDescr" placeholder="Описание товара" th:field="*{description}">
   </label>
   <label>
-    <input type="text" name="productPrice" placeholder="Цена товара">
+    <input type="text" name="productPrice" placeholder="Цена товара" th:field="*{price}">
   </label>
   <button type="submit">Добавить</button>
 </div>
