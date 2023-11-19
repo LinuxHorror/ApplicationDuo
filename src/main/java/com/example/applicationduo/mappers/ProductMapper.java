@@ -12,13 +12,13 @@ import java.util.List;
 )
 public interface ProductMapper {
 
-    @Mapping(target = "name", source = "name")
+    @Mapping(target = "productTitle", source = "productTitle")
     @Mapping(target = "description", source = "description")
     @Mapping(target = "price", source = "price")
     ProductEntity toEntity(ProductDto dto);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "name", source = "name")
+    @Mapping(target = "productTitle", source = "productTitle")
     @Mapping(target = "description", source = "description")
     @Mapping(target = "price", source = "price")
     ProductDto toDto(ProductEntity entity);
