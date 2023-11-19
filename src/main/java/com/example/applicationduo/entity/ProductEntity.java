@@ -21,4 +21,19 @@ public class ProductEntity {
     private String name;
     private String description;
     private Float price;
+
+    public ProductEntity setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public ProductEntity setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public ProductEntity setPrice(Float price) {
+        this.price = price;
+        return this;
+    }
 }
