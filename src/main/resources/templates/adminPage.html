@@ -42,12 +42,17 @@
     </tr>
     </thead>
     <tbody th:each="product, count: ${products}">
+
     <tr>
+      <form th:method="post" th:action="@{/admin/update/{id}(id = ${product.getId()})}">
       <th scope="row" th:text="${count.count}"></th>
-      <td th:text="${product.getProductTitle()}"/>
-      <td th:text="${product.getDescription()}"/>
-      <td th:text="${product.getPrice()}"/>
+      <td><input th:value="${product.getProductTitle()}"> </td>
+      <td><input th:value="${product.getDescription()}"></td>
+      <td><input th:value="${product.getPrice()}"></td>
+      <td><button type="submit">Обновить</button> </td>
+      </form>
     </tr>
+
     </tbody>
   </table>
 </div>
