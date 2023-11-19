@@ -29,11 +29,14 @@ public class EnterPageController {
 
     @PostMapping("/submit")
     public ModelAndView enterData(@Valid @ModelAttribute("newUser") UserCreationDto dto, BindingResult result){
-        var model = new ModelAndView("enterPage");
         if(!result.hasFieldErrors()){
-            //TODO CHECK
-            model.addObject("newUser", new UserCreationDto());
+            //TODO SAVE THIS USER TO SESSION OR COOKIE
+            if(!service.isExistsInDb(dto)){
+                var model = new ModelAndView("enterPage");
+                model.addObject("notFound", false);
+                return model;
+            }
         }
-        return model;
+        return new ModelAndView("redirect:/store");
     }
 }

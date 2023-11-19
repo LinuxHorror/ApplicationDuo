@@ -20,6 +20,9 @@
     <br><br>
     <button type="submit">Submit</button>
     <a th:href="@{/registration}">Still not registered?</a>
+    <p th:if="${notFound} == false">
+        Account is not found!
+    </p>
 </form>
 <footer></footer>
 
