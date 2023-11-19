@@ -7,5 +7,7 @@ import java.util.Optional;
 
 
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
+
+    //TODO native? query desc order
     Optional<ProductEntity> findByProductTitle(String name);
 }

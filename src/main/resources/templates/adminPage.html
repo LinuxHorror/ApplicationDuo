@@ -35,20 +35,26 @@
   <table class="table">
     <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">№</th>
       <th scope="col">Название</th>
       <th scope="col">Описание</th>
       <th scope="col">Цена</th>
+      <th scope="col">Удалить</th>
     </tr>
     </thead>
     <tbody th:each="product, count: ${products}">
-
     <tr>
-      <form th:method="post" th:action="@{/admin/update/{id}(id = ${product.getId()})}">
+      <form th:action="@{/admin/updateProduct/{idNew}(idNew = ${product.id})}" method="post">
       <th scope="row" th:text="${count.count}"></th>
-      <td><input th:value="${product.getProductTitle()}"> </td>
-      <td><input th:value="${product.getDescription()}"></td>
-      <td><input th:value="${product.getPrice()}"></td>
+      <td><label>
+        <input th:value="*{product.getProductTitle()}" name = "productTitle">
+      </label></td>
+      <td><label>
+        <input th:value="${product.getDescription()}" name = "description">
+      </label></td>
+      <td><label>
+        <input th:value="${product.getPrice()}" name = "price">
+      </label></td>
       <td><button type="submit">Обновить</button> </td>
       </form>
     </tr>

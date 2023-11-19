@@ -33,14 +33,12 @@ public class AdminController {
         return modelAndView;
     }
 
-    @PostMapping("/updateProduct/{id}")
-    public String update(@Valid @ModelAttribute("newProduct") ProductDto dto,
-                         BindingResult bindingResult,
-                         @PathVariable("id") Integer id) {
-        if (!bindingResult.hasFieldErrors()) {
+    @PostMapping("/updateProduct/{idNew}")
+    public String update(@PathVariable(name = "idNew") Integer id,
+                         @ModelAttribute("newProduct") ProductDto dto) {
+        //TODO add binding result
             productService.update(id, dto);
-        }
-        return "adminPage";
+        return "redirect:/admin";
     }
 
     @PostMapping("/update/{id}")

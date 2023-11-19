@@ -28,7 +28,8 @@ public class EnterPageController {
     }
 
     @PostMapping("/submit")
-    public ModelAndView enterData(@Valid @ModelAttribute("newUser") UserCreationDto dto, BindingResult result){
+    public ModelAndView enterData(@Valid @ModelAttribute("newUser") UserCreationDto dto,
+                                  BindingResult result){
         if(!result.hasFieldErrors()){
             //TODO SAVE THIS USER TO SESSION OR COOKIE
             if(!service.isExistsInDb(dto)){
@@ -36,7 +37,10 @@ public class EnterPageController {
                 model.addObject("notFound", false);
                 return model;
             }
+            else {
+                return new ModelAndView("redirect:/store");
+            }
         }
-        return new ModelAndView("redirect:/store");
+        return new ModelAndView("enterPage");
     }
 }
