@@ -17,6 +17,9 @@ import java.util.UUID;
 public class ProductService {
     private final ProductRepository repository;
 
+    public void save(ProductEntity product){
+        repository.save(product);
+    }
     public List<ProductEntity> findAll(){
         return repository.findAll();
     }
@@ -29,7 +32,7 @@ public class ProductService {
     @Transactional
     public ProductEntity update(UUID id, ProductDto dto){
         return repository.getReferenceById(id)
-                .setName(dto.getName())
+                .setName(dto.getProductTitle())
                 .setPrice(dto.getPrice())
                 .setDescription(dto.getDescription());
     }
