@@ -44,7 +44,7 @@
     <tbody th:each="product, count: ${products}">
     <tr>
       <th scope="row" th:text="${count.count}"></th>
-      <td th:text="${product.getName()}"/>
+      <td th:text="${product.getProductTitle()}"/>
       <td th:text="${product.getDescription()}"/>
       <td th:text="${product.getPrice()}"/>
     </tr>
