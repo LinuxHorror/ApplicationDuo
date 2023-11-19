@@ -27,8 +27,8 @@ public class RegistrationController {
 
     @PostMapping("/save")
     public ModelAndView validPage(@Valid @ModelAttribute("newUser") UserCreationDto user,
-                                  @RequestParam("checkPassword") String checkPass,
-                                  BindingResult bindingResult) {
+                                  BindingResult bindingResult,
+                                  @RequestParam(name = "checkPassword") String checkPass) {
         var modelAndView = new ModelAndView("registration");
         if (!bindingResult.hasFieldErrors()) {
             if (user.getPassword().equals(checkPass)) {
@@ -37,6 +37,8 @@ public class RegistrationController {
             }else {
                 modelAndView.addObject("check", false);
             }
+        } else {
+            modelAndView.addObject("check", false);
         }
         return modelAndView;
     }
