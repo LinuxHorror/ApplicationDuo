@@ -32,6 +32,7 @@ public class AdminController {
         modelAndView.addObject("products", productMapper.toListDto(productService.findAll()));
         return modelAndView;
     }
+
     @PostMapping("/updateProduct/{id}")
     public String update(@Valid @ModelAttribute("newProduct") ProductDto dto,
                          BindingResult bindingResult,
@@ -41,8 +42,18 @@ public class AdminController {
         }
         return "adminPage";
     }
- /*   @ModelAttribute(name = "newProduct")
+
+    /*@ModelAttribute(name = "newProduct")
     public ProductDto productDto(){
         return new ProductDto();
     }*/
+    @PostMapping("/save")
+    public String save(@Valid @ModelAttribute(name = "newProduct") ProductDto product,
+                       BindingResult result) {
+
+        if (!result.hasFieldErrors()) {
+            productService.save(productMapper.toEntity(product));
+        }
+        return "adminPage";
+    }
 }
