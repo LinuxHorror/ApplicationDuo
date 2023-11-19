@@ -1,12 +1,13 @@
 package com.example.applicationduo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -16,11 +17,23 @@ import java.util.UUID;
 @Table(name = "products")
 public class ProductEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String name;
+
     private String description;
+
     private Float price;
+
+    @UpdateTimestamp
+    private Date dateOfUpdate;
+
+    @CreationTimestamp
+    private Date dateOfCreation;
+
+    @Version
+    private Integer version;
 
     public ProductEntity setName(String name) {
         this.name = name;
