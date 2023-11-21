@@ -30,6 +30,7 @@ public class ProductEntity {
     private Date dateOfUpdate;
 
     @CreationTimestamp
+    @Temporal(value = TemporalType.DATE)
     private Date dateOfCreation;
 
     @Version
