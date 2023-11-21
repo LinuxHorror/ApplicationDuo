@@ -17,14 +17,14 @@ import org.springframework.web.servlet.ModelAndView;
 @RequiredArgsConstructor
 
 @Controller
-@RequestMapping("/enter")
-public class EnterPageController {
+@RequestMapping("/login")
+public class LoginPageController {
 
     private final UserMapper userMapper;
     private final UserService service;
     @GetMapping
     public ModelAndView getMainPage(@ModelAttribute("newUser") UserCreationDto dto){
-        return new ModelAndView("enterPage");
+        return new ModelAndView("loginPage");
     }
 
     @PostMapping("/submit")
@@ -33,7 +33,7 @@ public class EnterPageController {
         if(!result.hasFieldErrors()){
             //TODO SAVE THIS USER TO SESSION OR COOKIE
             if(!service.isExistsInDb(dto)){
-                var model = new ModelAndView("enterPage");
+                var model = new ModelAndView("loginPage");
                 model.addObject("notFound", false);
                 return model;
             }
@@ -41,6 +41,6 @@ public class EnterPageController {
                 return new ModelAndView("redirect:/store");
             }
         }
-        return new ModelAndView("enterPage");
+        return new ModelAndView("loginPage");
     }
 }
