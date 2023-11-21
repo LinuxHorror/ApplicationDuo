@@ -28,6 +28,10 @@ public class ProductService {
     public Optional<ProductEntity> getById(Integer id){
         return repository.findById(id);
     }
+
+    public List<ProductEntity> getByTitle(String title){
+        return repository.findByProductTitle(title);
+    }
     public void deleteById(Integer id){
         repository.deleteById(id);
     }

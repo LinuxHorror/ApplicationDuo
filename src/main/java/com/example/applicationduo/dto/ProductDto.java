@@ -1,5 +1,6 @@
 package com.example.applicationduo.dto;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ public class ProductDto {
     @NotBlank(message = "empty description")
     private String description;
     @NotNull(message = "empty price")
+    @Min(value = 0, message = "negative price")
     private Float price;
 
 
