@@ -1,11 +1,12 @@
 package com.example.applicationduo.web.controllers;
 
 
-import com.example.applicationduo.service.ProductService;
-import com.example.applicationduo.service.UserService;
 import com.example.applicationduo.dto.ProductDto;
+import com.example.applicationduo.entity.ProductEntity;
 import com.example.applicationduo.mappers.ProductMapper;
 import com.example.applicationduo.mappers.UserMapper;
+import com.example.applicationduo.service.ProductService;
+import com.example.applicationduo.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.UUID;
+
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @RequiredArgsConstructor
 @Controller
@@ -37,16 +41,18 @@ public class AdminController {
     public String update(@PathVariable(name = "idNew") Integer id,
                          @ModelAttribute("newProduct") ProductDto dto) {
         //TODO add binding result
-            productService.update(id, dto);
+        productService.update(id, dto);
         return "redirect:/admin";
     }
+
     @PostMapping("/deleteProduct/{idProduct}")
-    public String deleteProduct(@PathVariable("idProduct") Integer id){
+    public String deleteProduct(@PathVariable("idProduct") Integer id) {
         productService.deleteById(id);
         return "redirect:/admin";
     }
+
     @PostMapping("/deleteCustomer/{idCustomer}")
-    public String deleteCustomer(@PathVariable("idCustomer") UUID id){
+    public String deleteCustomer(@PathVariable("idCustomer") UUID id) {
         userService.deleteById(id);
         return "redirect:/admin";
     }
@@ -63,5 +69,18 @@ public class AdminController {
             return new ModelAndView("redirect:/admin");
         }
         return getTotalPage(product);
+    }
+
+    @GetMapping("/search")
+    public ModelAndView searchByTitle(@RequestParam(name = "search") String title,
+                                      @ModelAttribute(name = "newProduct") ProductDto product
+                                      ) {
+        getTotalPage(product);
+        var modelAndView = new ModelAndView("adminPage");
+        if (isNotBlank(title)) {
+            List<ProductEntity> byTitle = productService.getByTitle(title);
+            modelAndView.addObject("products", productMapper.toListDto(byTitle));
+        }
+        return modelAndView;
     }
 }
