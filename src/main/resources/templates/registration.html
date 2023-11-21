@@ -25,6 +25,9 @@
         <p th:if="${check} == false">
             Passwords are not match
         </p>
+        <p th:if="${isExists} == true">
+            User already exists
+        </p>
     </label>
     <br><br>
     <button type="submit">Create Account</button>
