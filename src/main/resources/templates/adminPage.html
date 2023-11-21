@@ -25,7 +25,7 @@
       <td th:text="${user.username}"/>
       <td th:text="${user.password}"/>
       <td>
-      <form th:action="@{admin/deleteCustomer/{id}(id = ${user.getId()})}" th:method="post">
+      <form th:action="@{admin/deleteCustomer/{idCustomer}(idCustomer = ${user.getId()})}" th:method="post">
       <button type="submit">Удалить</button>
       </form></td>
     </tr>
@@ -50,7 +50,7 @@
     </thead>
     <tbody th:each="product, count: ${products}">
     <tr>
-      <form th:action="@{/admin/updateProduct/{idNew}(idNew = ${product.id})}" method="post">
+      <form th:action="@{/admin/updateProduct/{idNew}(idNew = ${product.getId()})}" method="post">
       <th scope="row" th:text="${count.count}"></th>
       <td><label>
         <input th:value="*{product.getProductTitle()}" name = "productTitle">
@@ -64,7 +64,7 @@
       <td><button type="submit">Обновить</button> </td>
       </form>
       <td>
-        <form th:action="@{admin/deleteProduct/{id}(id = ${product.id})}" th:method="post">
+        <form th:action="@{admin/deleteProduct/{idProduct}(idProduct = ${product.id})}" th:method="post">
            <button type="submit">Удалить</button>
         </form>
       </td>
