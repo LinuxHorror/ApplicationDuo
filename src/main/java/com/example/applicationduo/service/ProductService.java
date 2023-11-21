@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.plaf.PanelUI;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,5 +34,12 @@ public class ProductService {
     @Transactional
     public void update(Integer id, ProductDto dto){
         mapper.update(repository.getReferenceById(id), dto);
+    }
+
+    public List<ProductEntity> getDesc(){
+        return repository.findAllDesc();
+    }
+    public List<ProductEntity> getAsc(){
+        return repository.findAllAsc();
     }
 }

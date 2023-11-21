@@ -43,7 +43,12 @@
       <th scope="col">№</th>
       <th scope="col">Название</th>
       <th scope="col">Описание</th>
-      <th scope="col">Цена</th>
+      <th scope="col">Цена
+      <form th:action="@{/admin/order}" th:method="post">
+      <button type="submit" name="decreasing" value="decreasing">↓</button>
+      <button type="submit" name="ascending" value="ascending">↑</button>
+      </form>
+      </th>
       <th scope="col">Обновить</th>
       <th scope="col">Удалить</th>
     </tr>
