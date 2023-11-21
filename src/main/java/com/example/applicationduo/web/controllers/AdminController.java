@@ -52,19 +52,18 @@ public class AdminController {
     }
 
     @PostMapping("/updateProduct/{idNew}")
-    public ModelAndView update(@Valid @ModelAttribute("newProduct") ProductDto dto,
-                         BindingResult bindingResult,
-                         @PathVariable(name = "idNew") Integer id
-                         ) {
+    public ModelAndView update(ProductDto dto,
+                               @PathVariable(name = "idNew") Integer id) {
         //TODO add binding result
-        var modelAndView = new ModelAndView("adminPage");
-        if(!bindingResult.hasFieldErrors()){
+
+        ModelAndView totalPage = getTotalPage(new ProductDto());
+        if(dto.getPrice() > 0){
             productService.update(id, dto);
             return new ModelAndView("redirect:/admin");
         }else {
-            modelAndView.addObject("negativeNumber", false);
+            totalPage.addObject("newProduct", new ProductDto());
         }
-        return modelAndView;
+        return totalPage;
     }
 
     @PostMapping("/deleteProduct/{idProduct}")

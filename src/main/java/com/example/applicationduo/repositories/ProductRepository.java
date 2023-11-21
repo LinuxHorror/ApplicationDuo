@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
 
-    //TODO native? query desc order
     List<ProductEntity> findByProductTitle(String name);
 
     @Query(nativeQuery = true, value =  "SELECT * FROM products pr order by pr.price DESC")
