@@ -40,6 +40,16 @@ public class AdminController {
             productService.update(id, dto);
         return "redirect:/admin";
     }
+    @PostMapping("/deleteProduct/{idProduct}")
+    public String deleteProduct(@PathVariable("idProduct") Integer id){
+        productService.deleteById(id);
+        return "redirect:/admin";
+    }
+    @PostMapping("/deleteCustomer/{idCustomer}")
+    public String deleteCustomer(@PathVariable("idCustomer") UUID id){
+        userService.deleteById(id);
+        return "redirect:/admin";
+    }
 
     /*@ModelAttribute(name = "newProduct")
     public ProductDto productDto(){

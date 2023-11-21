@@ -11,18 +11,23 @@
   <table class="table">
     <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">№</th>
       <th scope="col">Email</th>
       <th scope="col">Логин</th>
       <th scope="col">Пароль</th>
+      <th scope="col">Удалить</th>
     </tr>
     </thead>
     <tbody th:each="user, count: ${users}">
     <tr>
       <th scope="row" th:text="${count.count}"></th>
-      <td th:text="${user.getEmail()}"/>
-      <td th:text="${user.getUsername()}"/>
-      <td th:text="${user.getPassword()}"/>
+      <td th:text="${user.email}"/>
+      <td th:text="${user.username}"/>
+      <td th:text="${user.password}"/>
+      <td>
+      <form th:action="@{admin/deleteCustomer/{id}(id = ${user.getId()})}" th:method="post">
+      <button type="submit">Удалить</button>
+      </form></td>
     </tr>
     </tbody>
   </table>
@@ -39,6 +44,7 @@
       <th scope="col">Название</th>
       <th scope="col">Описание</th>
       <th scope="col">Цена</th>
+      <th scope="col">Обновить</th>
       <th scope="col">Удалить</th>
     </tr>
     </thead>
@@ -57,8 +63,12 @@
       </label></td>
       <td><button type="submit">Обновить</button> </td>
       </form>
+      <td>
+        <form th:action="@{admin/deleteProduct/{id}(id = ${product.id})}" th:method="post">
+           <button type="submit">Удалить</button>
+        </form>
+      </td>
     </tr>
-
     </tbody>
   </table>
 </div>
