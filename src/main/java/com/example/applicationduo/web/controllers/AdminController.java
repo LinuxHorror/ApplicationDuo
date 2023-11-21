@@ -7,6 +7,7 @@ import com.example.applicationduo.dto.ProductDto;
 import com.example.applicationduo.mappers.ProductMapper;
 import com.example.applicationduo.mappers.UserMapper;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.UUID;
+
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @RequiredArgsConstructor
 @Controller
@@ -30,6 +33,21 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView("adminPage");
         modelAndView.addObject("users", userMapper.toListDto(userService.findAll()));
         modelAndView.addObject("products", productMapper.toListDto(productService.findAll()));
+        return modelAndView;
+    }
+
+    @PostMapping("/order")
+    public ModelAndView getOrdered(@RequestParam(value = "ascending", required = false) String ascending,
+                                   @RequestParam(value = "decreasing", required = false) String decreasing,
+                                   @ModelAttribute("newProduct") ProductDto dto){
+        getTotalPage(dto);
+        ModelAndView modelAndView = new ModelAndView("adminPage");
+        if (isNotBlank(ascending)){
+            modelAndView.addObject("products", productMapper.toListDto(productService.getAsc()));
+        }
+        else if(isNotBlank(decreasing)){
+            modelAndView.addObject("products", productMapper.toListDto(productService.getDesc()));
+        }
         return modelAndView;
     }
 
