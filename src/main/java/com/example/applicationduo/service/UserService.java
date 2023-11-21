@@ -1,4 +1,4 @@
-package com.example.applicationduo.dao;
+package com.example.applicationduo.service;
 
 import com.example.applicationduo.dto.UserCreationDto;
 import com.example.applicationduo.entity.UserEntity;

@@ -1,8 +1,7 @@
-package com.example.applicationduo.dao;
+package com.example.applicationduo.service;
 
 import com.example.applicationduo.dto.ProductDto;
 import com.example.applicationduo.entity.ProductEntity;
-import com.example.applicationduo.entity.UserEntity;
 import com.example.applicationduo.mappers.ProductMapper;
 import com.example.applicationduo.repositories.ProductRepository;
 import jakarta.transaction.Transactional;

@@ -18,6 +18,10 @@ public class ImageEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String name;
+
+    private String type;
+
     @Lob
     @Column(name = "image data", length = 1000)
     private Byte[] bytes;

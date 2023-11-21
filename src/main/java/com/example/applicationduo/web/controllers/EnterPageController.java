@@ -1,7 +1,7 @@
 package com.example.applicationduo.web.controllers;
 
 
-import com.example.applicationduo.dao.UserService;
+import com.example.applicationduo.service.UserService;
 import com.example.applicationduo.dto.UserCreationDto;
 import com.example.applicationduo.mappers.UserMapper;
 import jakarta.validation.Valid;
