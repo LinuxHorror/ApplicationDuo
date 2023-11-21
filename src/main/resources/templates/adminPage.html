@@ -64,16 +64,17 @@
         </thead>
         <tbody th:each="product, count: ${products}">
         <tr>
-            <form th:action="@{/admin/updateProduct/{idNew}(idNew = ${product.getId()})}" method="post">
+            <form th:action="@{/admin/updateProduct/{idNew}(idNew = ${product.getId()})}" method="post" th:object="product1">
                 <th scope="row" th:text="${count.count}"></th>
                 <td><label>
-                    <input th:value="*{product.getProductTitle()}" name="productTitle">
+                    <input th:value="*{product.productTitle}" name="productTitle">
                 </label></td>
                 <td><label>
-                    <input th:value="${product.getDescription()}" name="description">
+                    <input th:value="${product.description}" name="description">
                 </label></td>
                 <td><label>
-                    <input th:value="${product.getPrice()}" name="price">
+                    <input th:value="${product.price}" name="price" th:field="*{}" >
+                    <p th:if="${#fields.hasErrors('price')}" th:errors="${product.price}">Incorrect data</p>
                 </label></td>
                 <td>
                     <button type="submit">Обновить</button>

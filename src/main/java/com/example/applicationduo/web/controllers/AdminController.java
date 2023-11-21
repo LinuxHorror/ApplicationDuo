@@ -8,7 +8,6 @@ import com.example.applicationduo.mappers.UserMapper;
 import com.example.applicationduo.service.ProductService;
 import com.example.applicationduo.service.UserService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -41,24 +40,31 @@ public class AdminController {
     @PostMapping("/order")
     public ModelAndView getOrdered(@RequestParam(value = "ascending", required = false) String ascending,
                                    @RequestParam(value = "decreasing", required = false) String decreasing,
-                                   @ModelAttribute("newProduct") ProductDto dto){
+                                   @ModelAttribute("newProduct") ProductDto dto) {
         getTotalPage(dto);
         ModelAndView modelAndView = new ModelAndView("adminPage");
-        if (isNotBlank(ascending)){
+        if (isNotBlank(ascending)) {
             modelAndView.addObject("products", productMapper.toListDto(productService.getAsc()));
-        }
-        else if(isNotBlank(decreasing)){
+        } else if (isNotBlank(decreasing)) {
             modelAndView.addObject("products", productMapper.toListDto(productService.getDesc()));
         }
         return modelAndView;
     }
 
     @PostMapping("/updateProduct/{idNew}")
-    public String update(@PathVariable(name = "idNew") Integer id,
-                         @ModelAttribute("newProduct") ProductDto dto) {
+    public ModelAndView update(@Valid @ModelAttribute("newProduct") ProductDto dto,
+                         BindingResult bindingResult,
+                         @PathVariable(name = "idNew") Integer id
+                         ) {
         //TODO add binding result
-        productService.update(id, dto);
-        return "redirect:/admin";
+        var modelAndView = new ModelAndView("adminPage");
+        if(!bindingResult.hasFieldErrors()){
+            productService.update(id, dto);
+            return new ModelAndView("redirect:/admin");
+        }else {
+            modelAndView.addObject("negativeNumber", false);
+        }
+        return modelAndView;
     }
 
     @PostMapping("/deleteProduct/{idProduct}")
@@ -89,8 +95,7 @@ public class AdminController {
 
     @GetMapping("/search")
     public ModelAndView searchByTitle(@RequestParam(name = "search") String title,
-                                      @ModelAttribute(name = "newProduct") ProductDto product
-                                      ) {
+                                      @ModelAttribute(name = "newProduct") ProductDto product) {
         getTotalPage(product);
         var modelAndView = new ModelAndView("adminPage");
         if (isNotBlank(title)) {
