@@ -16,13 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class StoreController {
     private final ProductService service;
     private final ProductMapper mapper;
-
-    @GetMapping("/cart")
-    public ModelAndView shoppingCart(){
-        ModelAndView modelAndView = new ModelAndView("cartPage");
-        modelAndView.addObject("products", mapper.toListDto(service.findAll()));
-        return modelAndView;
-    }
     @GetMapping
     public ModelAndView mainPage(){
         return new ModelAndView("mainPage");
