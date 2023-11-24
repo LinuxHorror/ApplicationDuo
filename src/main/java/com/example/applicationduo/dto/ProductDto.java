@@ -21,6 +21,11 @@ public class ProductDto {
     private String productTitle;
     @NotBlank(message = "empty description")
     private String description;
+
+    @NotNull(message = "empty count of product")
+    @Min(value = 0, message = "count should be positive")
+    private Integer count;
+
     @NotNull(message = "empty price")
     @Min(value = 0, message = "negative price")
     private Float price;
