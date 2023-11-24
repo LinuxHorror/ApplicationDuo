@@ -26,6 +26,8 @@ public class ProductEntity {
 
     private Float price;
 
+    private Integer count;
+
     @UpdateTimestamp
     private Date dateOfUpdate;
 
