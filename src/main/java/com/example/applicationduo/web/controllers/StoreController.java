@@ -9,8 +9,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/store")
 public class StoreController {
+    @GetMapping("/shoppingCart")
+    public ModelAndView shoppingCart(){
+        return new ModelAndView("shoppingCartPage");
+    }
     @GetMapping
     public ModelAndView mainPage(){
-        return new ModelAndView("storeMainPage");
+        return new ModelAndView("mainPage");
     }
 }
