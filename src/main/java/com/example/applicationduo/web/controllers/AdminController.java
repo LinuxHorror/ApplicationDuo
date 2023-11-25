@@ -12,8 +12,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -84,12 +86,19 @@ public class AdminController {
     }*/
     @PostMapping("/save")
     public ModelAndView save(@Valid @ModelAttribute(name = "newProduct") ProductDto product,
-                             BindingResult result) {
+                             BindingResult result,
+                             @RequestParam(value = "file")MultipartFile file) {
+        ModelAndView totalPage = getTotalPage(product);
         if (!result.hasFieldErrors()) {
-            productService.save(productMapper.toEntity(product));
-            return new ModelAndView("redirect:/admin");
+                try {
+                    product.setImageToShow(file.getBytes());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                productService.save(productMapper.toEntity(product));
+                return new ModelAndView("redirect:/admin");
         }
-        return getTotalPage(product);
+        return totalPage;
     }
 
     @GetMapping("/search")

@@ -35,6 +35,9 @@ public class ProductEntity {
     @Temporal(value = TemporalType.DATE)
     private Date dateOfCreation;
 
+    @Lob
+    private byte[] imageToShow;
+
     @Version
     private Integer version;
 }
