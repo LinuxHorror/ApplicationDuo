@@ -33,7 +33,7 @@ public class ProductDto {
     @Min(value = 0, message = "negative price")
     private Float price;
 
-    public String getImageFromBytes(){
+    public String getImageFromBytes() {
         return Base64.getEncoder().encodeToString(imageToShow);
     }
 

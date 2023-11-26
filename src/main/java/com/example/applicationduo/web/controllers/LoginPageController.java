@@ -1,9 +1,9 @@
 package com.example.applicationduo.web.controllers;
 
 
-import com.example.applicationduo.service.UserService;
 import com.example.applicationduo.dto.UserCreationDto;
 import com.example.applicationduo.mappers.UserMapper;
+import com.example.applicationduo.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -22,22 +22,22 @@ public class LoginPageController {
 
     private final UserMapper userMapper;
     private final UserService service;
+
     @GetMapping
-    public ModelAndView getMainPage(@ModelAttribute("newUser") UserCreationDto dto){
+    public ModelAndView getMainPage(@ModelAttribute("newUser") UserCreationDto dto) {
         return new ModelAndView("loginPage");
     }
 
     @PostMapping("/submit")
     public ModelAndView enterData(@Valid @ModelAttribute("newUser") UserCreationDto dto,
-                                  BindingResult result){
-        if(!result.hasFieldErrors()){
+                                  BindingResult result) {
+        if (!result.hasFieldErrors()) {
             //TODO SAVE THIS USER TO SESSION OR COOKIE
-            if(!service.isExistsInDb(dto)){
+            if (!service.isExistsInDb(dto)) {
                 var model = new ModelAndView("loginPage");
                 model.addObject("notFound", false);
                 return model;
-            }
-            else {
+            } else {
                 return new ModelAndView("redirect:/store");
             }
         }

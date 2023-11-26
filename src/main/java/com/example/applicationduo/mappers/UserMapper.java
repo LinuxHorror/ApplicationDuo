@@ -23,6 +23,7 @@ public interface UserMapper {
     @Mapping(target = "email", source = "email")
     UserCreationDto toDto(UserEntity entity);
 
-    List<UserEntity> toListEntity (List<UserCreationDto> dtos);
-    List<UserCreationDto> toListDto (List<UserEntity> entities);
+    List<UserEntity> toListEntity(List<UserCreationDto> dtos);
+
+    List<UserCreationDto> toListDto(List<UserEntity> entities);
 }

@@ -1,15 +1,9 @@
 package com.example.applicationduo.entity;
 
-import com.example.applicationduo.dto.ProductDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
@@ -18,13 +12,12 @@ import java.util.List;
 @Table(name = "cart")
 public class CartEntity {
     @Id
-    private Integer idInCart;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    private String productTitle;
+    private Integer productId;
 
-    private String description;
-
-    private Float price;
+    private Integer count;
 
     @ManyToOne
     private UserEntity user;
