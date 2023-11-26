@@ -32,6 +32,8 @@ public interface ProductMapper {
     List<ProductDto> toListDto(List<ProductEntity> entities);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "imageToShow", ignore = true)
+    // TODO : ADD POSSIBILITY TO CHANGE IMAGE
     void update(@MappingTarget ProductEntity entity, ProductDto dto);
 
 }
