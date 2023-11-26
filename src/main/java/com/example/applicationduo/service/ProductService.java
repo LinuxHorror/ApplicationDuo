@@ -48,4 +48,7 @@ public class ProductService {
     public List<ProductEntity> getAsc(){
         return repository.findAllAsc();
     }
+    public void deleteAll(){
+        repository.deleteAll();
+    }
 }

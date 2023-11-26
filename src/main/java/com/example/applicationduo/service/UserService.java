@@ -37,5 +37,8 @@ public class UserService {
                 .findByEmailAndPassword(dto.getEmail(), dto.getPassword())
                 .isPresent();
     }
+    public Optional<UserEntity> findByNameAndEmail(UserCreationDto dto){
+        return repository.findByUsernameAndEmail(dto.getUsername(), dto.getEmail());
+    }
 
 }
