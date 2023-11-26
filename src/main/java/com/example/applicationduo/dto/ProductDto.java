@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Base64;
 
 
 @Data
@@ -26,9 +27,14 @@ public class ProductDto {
     @Min(value = 0, message = "count should be positive")
     private Integer count;
 
+    private byte[] imageToShow;
+
     @NotNull(message = "empty price")
     @Min(value = 0, message = "negative price")
     private Float price;
 
+    public String getImageFromBytes(){
+        return Base64.getEncoder().encodeToString(imageToShow);
+    }
 
 }

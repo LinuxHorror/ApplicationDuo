@@ -40,9 +40,11 @@ public class ProductService {
         mapper.update(repository.getReferenceById(id), dto);
     }
 
+    @Transactional
     public List<ProductEntity> getDesc(){
         return repository.findAllDesc();
     }
+    @Transactional
     public List<ProductEntity> getAsc(){
         return repository.findAllAsc();
     }

@@ -51,6 +51,7 @@
         <tr>
             <th scope="col">№</th>
             <th scope="col">Название</th>
+            <th scope="col">Фото</th>
             <th scope="col">Описание</th>
             <th scope="col">Кол-во</th>
             <th scope="col">Цена
@@ -69,6 +70,9 @@
                 <th scope="row" th:text="${count.count}"></th>
                 <td><label>
                     <input type="text" th:value="${product.productTitle}" name="productTitle"/>
+                </label></td>
+                <td><label>
+                    <img th:src="@{'data:image/png;base64,'+${product.getImageFromBytes()}}" alt="product" style="width: 75px; height: 70px">
                 </label></td>
                 <td><label>
                     <input th:value="${product.description}" name="description">
@@ -94,7 +98,7 @@
 </div>
 
 
-<form th:method="post" th:action="@{/admin/save}" th:object="${newProduct}">
+<form th:method="post" th:action="@{/admin/save}" th:object="${newProduct}" enctype="multipart/form-data">
     <div class="addProduct">
         <label>
             <input type="text" name="productTitle" placeholder="Наименование товара" th:field="*{productTitle}">
@@ -111,6 +115,9 @@
         <label>
             <input type="text" name="productPrice" placeholder="Цена товара" th:field="*{price}">
             <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Incorrect data</p>
+        </label>
+        <label>
+            <input type="file" name="file" placeholder="Выберите Фото">
         </label>
         <button type="submit">Добавить</button>
     </div>

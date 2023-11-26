@@ -17,6 +17,7 @@ public interface ProductMapper {
     @Mapping(target = "description", source = "description")
     @Mapping(target = "price", source = "price")
     @Mapping(target = "count", source = "count")
+    @Mapping(target = "imageToShow", source = "imageToShow")
     ProductEntity toEntity(ProductDto dto);
 
     @Mapping(target = "id", source = "id")
@@ -24,12 +25,15 @@ public interface ProductMapper {
     @Mapping(target = "description", source = "description")
     @Mapping(target = "price", source = "price")
     @Mapping(target = "count", source = "count")
+    @Mapping(target = "imageToShow", source = "imageToShow")
     ProductDto toDto(ProductEntity entity);
 
     List<ProductEntity> toListEntity(List<ProductDto> dtos);
     List<ProductDto> toListDto(List<ProductEntity> entities);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "imageToShow", ignore = true)
+    // TODO : ADD POSSIBILITY TO CHANGE IMAGE
     void update(@MappingTarget ProductEntity entity, ProductDto dto);
 
 }
