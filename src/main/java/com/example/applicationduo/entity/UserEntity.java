@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -36,4 +38,7 @@ public class UserEntity {
 
     @Version
     private Integer version;
+
+    @OneToMany(mappedBy = "user")
+    private List<CartEntity> cart;
 }

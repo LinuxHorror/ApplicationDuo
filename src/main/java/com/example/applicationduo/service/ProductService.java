@@ -19,7 +19,7 @@ public class ProductService {
     private final ProductRepository repository;
     private final ProductMapper mapper;
 
-    public void save(ProductEntity product){
+    public void save(ProductEntity product) {
         repository.save(product);
     }
     public List<ProductEntity> findAll(){
