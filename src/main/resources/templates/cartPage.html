@@ -126,13 +126,15 @@
                                             <p class="mb-2">Total(Incl. taxes)</p>
                                             <p class="mb-2" th:text="'$' + (${totalPurchase} + ${totalPurchase} * 0.2)"></p>
                                         </div>
-
-                                        <button type="button" class="btn btn-info btn-block btn-lg">
-                                            <div class="d-flex justify-content-between">
-                                                <span th:text="'$' + (${totalPurchase} + ${totalPurchase} * 0.2)"></span>
+                                       <form th:action="@{/store/cart/acceptPurchase}" th:method="post">
+                                        <button type="submit" class="btn btn-info btn-block btn-lg">
+                                            <!--TODO SENT TO CONTROLLER TOTAL SUM-->
+                                            <div class="d-flex justify-content-between" th:value="${totalPurchase} + ${totalPurchase} * 0.2" th:name="order">
+                                                <p th:text="'$' + (${totalPurchase} + ${totalPurchase} * 0.2)"></p>
                                                 <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                                             </div>
                                         </button>
+                                       </form>
                                     </div>
                                 </div>
                             </div>

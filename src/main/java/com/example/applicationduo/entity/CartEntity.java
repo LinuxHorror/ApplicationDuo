@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -20,6 +21,7 @@ public class CartEntity {
     private Integer count;
 
     @ManyToOne
+    @ToString.Exclude
     private UserEntity user;
 
 }
