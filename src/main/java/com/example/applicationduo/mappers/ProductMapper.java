@@ -1,6 +1,7 @@
 package com.example.applicationduo.mappers;
 
 import com.example.applicationduo.dto.ProductDto;
+import com.example.applicationduo.entity.CartEntity;
 import com.example.applicationduo.entity.ProductEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -29,11 +30,18 @@ public interface ProductMapper {
     ProductDto toDto(ProductEntity entity);
 
     List<ProductEntity> toListEntity(List<ProductDto> dtos);
+
     List<ProductDto> toListDto(List<ProductEntity> entities);
+
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "imageToShow", ignore = true)
-    // TODO : ADD POSSIBILITY TO CHANGE IMAGE
+        // TODO : ADD POSSIBILITY TO CHANGE IMAGE
     void update(@MappingTarget ProductEntity entity, ProductDto dto);
+
+    @Mapping(target = "productId", source = "id")
+    @Mapping(target = "count", source = "count")
+    CartEntity toCartEntity(ProductEntity entity);
+
 
 }
