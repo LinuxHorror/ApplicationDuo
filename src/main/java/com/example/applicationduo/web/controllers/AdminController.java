@@ -59,10 +59,10 @@ public class AdminController {
         //TODO add binding result
 
         ModelAndView totalPage = getTotalPage(new ProductDto());
-        if(dto.getPrice() > 0){
+        if (dto.getPrice() > 0) {
             productService.update(id, dto);
             return new ModelAndView("redirect:/admin");
-        }else {
+        } else {
             totalPage.addObject("newProduct", new ProductDto());
         }
         return totalPage;
@@ -87,16 +87,16 @@ public class AdminController {
     @PostMapping("/save")
     public ModelAndView save(@Valid @ModelAttribute(name = "newProduct") ProductDto product,
                              BindingResult result,
-                             @RequestParam(value = "file")MultipartFile file) {
+                             @RequestParam(value = "file") MultipartFile file) {
         ModelAndView totalPage = getTotalPage(product);
         if (!result.hasFieldErrors()) {
-                try {
-                    product.setImageToShow(file.getBytes());
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                productService.save(productMapper.toEntity(product));
-                return new ModelAndView("redirect:/admin");
+            try {
+                product.setImageToShow(file.getBytes());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            productService.save(productMapper.toEntity(product));
+            return new ModelAndView("redirect:/admin");
         }
         return totalPage;
     }
