@@ -34,7 +34,7 @@
                                         <div class="d-flex justify-content-between">
                                             <div class="d-flex flex-row align-items-center">
                                                 <div>
-                                                    <p>SOME IMG</p>
+                                                    <img th:src="@{'data:image/png;base64,'+${product.getImageFromBytes()}}" alt="product" style="width: 75px; height: 70px; border-radius: 10px">
                                                 </div>
                                                 <div class="ms-3">
                                                     <h5 th:text="${product.productTitle}"></h5>
