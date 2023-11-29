@@ -42,9 +42,18 @@ public class UserEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<CartEntity> cart;
 
-    public void addToCart(CartEntity cartEntity){
-        if(cart == null){
+
+    public void addToCart(CartEntity cartEntity) {
+        if (cart == null) {
             cart = new ArrayList<>();
+        }
+        if (!cart.isEmpty()) {
+            for (CartEntity entity : cart) {
+                if (entity.getProductId().equals(cartEntity.getProductId())) {
+                    entity.setCount(cartEntity.getCount());
+                    return;
+                }
+            }
         }
         cart.add(cartEntity);
         cartEntity.setUser(this);
