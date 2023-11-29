@@ -10,11 +10,12 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
+@Transactional
 public class CartService {
     private final CartRepository repository;
     private final CartMapper cartMapper;
@@ -24,14 +25,27 @@ public class CartService {
         CartEntity cartEntity = productMapper.toCartEntity(product);
         cartEntity.setCount(count);
         CurrentUser.entity.addToCart(cartEntity);
-        repository.save(cartEntity);
+        Optional<CartEntity> cartEntity1 = repository.searchCartEntityByProductId(product.getId());
+        if (cartEntity1.isPresent()) {
+            cartEntity1.get().setCount(count);
+        } else {
+            repository.save(cartEntity);
+        }
     }
-    @Transactional
-    public void deleteCartProduct(Integer id){
+
+    public void deleteCartProduct(Integer id) {
         CartEntity byProductId = repository.findByProductId(id);
         // TODO REMOVE FROM LIST TO SHOW IN UI CORRECT INFO
         // TODO TRY SMTH WITH ORPHAN REMOVAL
-        CurrentUser.entity.getCart().remove(byProductId);
-        repository.deleteCartProduct(id);
+
+
+        List<CartEntity> cart = CurrentUser.entity.getCart();
+        for (int i = 0; i < cart.size(); i++) {
+            if (cart.get(i).equals(byProductId)) {
+                cart.remove(i);
+                repository.deleteCartProduct(id);
+                break;
+            }
+        }
     }
 }
