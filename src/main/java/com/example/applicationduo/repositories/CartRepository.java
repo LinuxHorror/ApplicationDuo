@@ -7,14 +7,15 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public interface CartRepository extends JpaRepository<CartEntity, Integer> {
 
-    CartEntity findByProductId(Integer id);
+    CartEntity findByProductIdAndUserId(Integer id, UUID userId);
 
     @Modifying
     @Query("DELETE FROM CartEntity WHERE productId = :id")
     void deleteCartProduct(Integer id);
 
-    Optional<CartEntity> searchCartEntityByProductId(Integer id);
+    Optional<CartEntity> searchCartEntityByProductIdAndUserId(Integer id, UUID userId);
 }
