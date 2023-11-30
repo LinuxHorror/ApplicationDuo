@@ -24,7 +24,6 @@ import java.util.List;
 @RequestMapping("*/cart")
 public class CartController {
     private final ProductService service;
-    private final ProductMapper mapper;
     private final CartService cartService;
     @GetMapping
     public ModelAndView shoppingCart(){
@@ -36,7 +35,7 @@ public class CartController {
             productEntity.setCount(entity.getCount());
             products.add(productEntity);
         }
-        List<ProductDto> listDto = mapper.toListDto(products);
+        List<ProductDto> listDto = service.getMapper().toListDto(products);
         modelAndView.addObject("products", listDto);
         float sumOfPurchase = 0;
         for(ProductEntity product : products){
@@ -50,7 +49,7 @@ public class CartController {
         ModelAndView modelAndView = shoppingCart();
         List<ProductEntity> all = service.findAll();
         all.sort(new ProductComparator());
-        modelAndView.addObject("products", mapper.toListDto(all));
+        modelAndView.addObject("products", service.getMapper().toListDto(all));
         return modelAndView;
     }
     @PostMapping("/{id}/remove")

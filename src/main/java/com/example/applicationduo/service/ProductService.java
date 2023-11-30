@@ -5,6 +5,7 @@ import com.example.applicationduo.entity.ProductEntity;
 import com.example.applicationduo.mappers.ProductMapper;
 import com.example.applicationduo.repositories.ProductRepository;
 import jakarta.transaction.Transactional;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Repository
+@Getter
 public class ProductService {
     private final ProductRepository repository;
     private final ProductMapper mapper;
