@@ -2,7 +2,9 @@ package com.example.applicationduo.web.controllers;
 
 
 import com.example.applicationduo.dto.UserCreationDto;
+import com.example.applicationduo.entity.UserEntity;
 import com.example.applicationduo.mappers.UserMapper;
+import com.example.applicationduo.model.CurrentUser;
 import com.example.applicationduo.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 
@@ -38,7 +42,9 @@ public class LoginPageController {
                 model.addObject("notFound", false);
                 return model;
             } else {
-                return new ModelAndView("redirect:/store");
+                Optional<UserEntity> user = service.findByNameAndEmail(dto);
+                CurrentUser.entity = user.get();
+                 return new ModelAndView("redirect:/store");
             }
         }
         return new ModelAndView("loginPage");

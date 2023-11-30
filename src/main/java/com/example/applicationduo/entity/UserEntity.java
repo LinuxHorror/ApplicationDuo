@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -39,6 +39,24 @@ public class UserEntity {
     @Version
     private Integer version;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true)
     private List<CartEntity> cart;
+
+
+    public void addToCart(CartEntity cartEntity) {
+        if (cart == null) {
+            cart = new ArrayList<>();
+        }
+        if (!cart.isEmpty()) {
+            for (CartEntity entity : cart) {
+                if (entity.getProductId().equals(cartEntity.getProductId())) {
+                    entity.setCount(cartEntity.getCount());
+                    return;
+                }
+            }
+        }
+        cart.add(cartEntity);
+        cartEntity.setUser(this);
+        //TODO CHECK THAT THIS PRODUCT ALREADY EXISTS, THEN DO UPDATE ( REMOVE -> ADD)
+    }
 }
