@@ -3,7 +3,6 @@ package com.example.applicationduo.web.controllers;
 
 import com.example.applicationduo.dto.UserCreationDto;
 import com.example.applicationduo.entity.UserEntity;
-import com.example.applicationduo.mappers.UserMapper;
 import com.example.applicationduo.model.CurrentUser;
 import com.example.applicationduo.service.UserService;
 import jakarta.validation.Valid;
@@ -23,8 +22,6 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/login")
 public class LoginPageController {
-
-    private final UserMapper userMapper;
     private final UserService service;
 
     @GetMapping
@@ -37,12 +34,12 @@ public class LoginPageController {
                                   BindingResult result) {
         if (!result.hasFieldErrors()) {
             //TODO SAVE THIS USER TO SESSION OR COOKIE
-            if (!service.isExistsInDb(dto)) {
+            if (service.isExistsInDb(dto)) {
                 var model = new ModelAndView("loginPage");
                 model.addObject("notFound", false);
                 return model;
             } else {
-                Optional<UserEntity> user = service.findByNameAndEmail(dto);
+                Optional<UserEntity> user = service.findByPasswordAndEmail(dto);
                 CurrentUser.entity = user.get();
                  return new ModelAndView("redirect:/store");
             }

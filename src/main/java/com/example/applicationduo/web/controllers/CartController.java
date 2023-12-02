@@ -28,44 +28,48 @@ import static java.util.Objects.isNull;
 public class CartController {
     private final ProductService service;
     private final CartService cartService;
+
     @GetMapping
-    public ModelAndView shoppingCart(){
+    public ModelAndView shoppingCart() throws UserNotRegisteredException {
         ModelAndView modelAndView = new ModelAndView("cartPage");
-        if(isNull(CurrentUser.entity)){
+        if (isNull(CurrentUser.entity)) {
             throw new UserNotRegisteredException();
-        } else {
-            List<CartEntity> cart = CurrentUser.entity.getCart();
-            List<ProductEntity> products = new ArrayList<>();
-            for (CartEntity entity : cart) {
-                ProductEntity productEntity = service.getById(entity.getProductId()).get();
-                productEntity.setCount(entity.getCount());
-                products.add(productEntity);
-            }
-            List<ProductDto> listDto = service.getMapper().toListDto(products);
-            modelAndView.addObject("products", listDto);
-            float sumOfPurchase = 0;
-            for (ProductEntity product : products) {
-                sumOfPurchase += product.getCount() * product.getPrice();
-            }
-            modelAndView.addObject("totalPurchase", sumOfPurchase);
         }
+        List<CartEntity> cart = CurrentUser.entity.getCart();
+        List<ProductEntity> products = new ArrayList<>();
+        for (CartEntity entity : cart) {
+            ProductEntity productEntity = service.getById(entity.getProductId()).get();
+            productEntity.setCount(entity.getCount());
+            products.add(productEntity);
+        }
+        List<ProductDto> listDto = service.getMapper().toListDto(products);
+        modelAndView.addObject("products", listDto);
+        float sumOfPurchase = 0;
+        for (ProductEntity product : products) {
+            sumOfPurchase += product.getCount() * product.getPrice();
+        }
+        modelAndView.addObject("totalPurchase", sumOfPurchase);
+
         return modelAndView;
     }
+
     @GetMapping("/sort")
-    public ModelAndView getSortedPage(){
+    public ModelAndView getSortedPage() {
         ModelAndView modelAndView = shoppingCart();
         List<ProductEntity> all = service.findAll();
         all.sort(new ProductComparator());
         modelAndView.addObject("products", service.getMapper().toListDto(all));
         return modelAndView;
     }
+
     @PostMapping("/{id}/remove")
-    public String removeFromCart(@PathVariable("id") Integer id){
+    public String removeFromCart(@PathVariable("id") Integer id) {
         cartService.deleteCartProduct(id);
         return "redirect:/store/cart";
     }
+
     @PostMapping("/acceptPurchase")
-    public ModelAndView accept(@RequestParam("order") Float sumOfPurchase){
+    public ModelAndView accept(@RequestParam("order") Float sumOfPurchase) {
         service.deleteAll();
         return new ModelAndView("redirect:/cart");
     }

@@ -18,11 +18,9 @@ public class RegistrationController {
     private final UserService service;
     private final UserMapper userMapper;
 
-
     @GetMapping
     public ModelAndView regPage(@ModelAttribute("newUser") UserCreationDto user) {
-        var modelAndView = new ModelAndView("registration");
-        return modelAndView;
+        return new ModelAndView("registration");
     }
 
     @PostMapping("/save")
@@ -32,7 +30,7 @@ public class RegistrationController {
         var modelAndView = new ModelAndView("registration");
         if (!bindingResult.hasFieldErrors()) {
             if (user.getPassword().equals(checkPass)) {
-                if(!service.isExistsInDb(user)){
+                if(service.isExistsInDb(user)){
                     service.save(userMapper.toEntity(user));
                     return new ModelAndView("redirect:/login");
                 }

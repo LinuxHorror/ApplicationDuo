@@ -2,7 +2,9 @@ package com.example.applicationduo.service;
 
 import com.example.applicationduo.dto.UserCreationDto;
 import com.example.applicationduo.entity.UserEntity;
+import com.example.applicationduo.mappers.UserMapper;
 import com.example.applicationduo.repositories.UserRepository;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -11,10 +13,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-
+@Getter
 @Repository
 public class UserService {
     private final UserRepository repository;
+    private final UserMapper mapper;
 
     public void save(UserEntity user) {
         repository.save(user);
@@ -34,11 +37,11 @@ public class UserService {
 
     public boolean isExistsInDb(UserCreationDto dto) {
         return repository
-                .findByEmailAndPassword(dto.getEmail(), dto.getPassword())
-                .isPresent();
+                .findByPasswordAndEmail(dto.getPassword(), dto.getEmail())
+                .isEmpty();
     }
-    public Optional<UserEntity> findByNameAndEmail(UserCreationDto dto){
-        return repository.findByUsernameAndEmail(dto.getUsername(), dto.getEmail());
+    public Optional<UserEntity> findByPasswordAndEmail(UserCreationDto dto){
+        return repository.findByPasswordAndEmail(dto.getPassword(), dto.getEmail());
     }
 
 }
