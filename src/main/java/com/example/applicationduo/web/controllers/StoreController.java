@@ -2,10 +2,11 @@ package com.example.applicationduo.web.controllers;
 
 
 import com.example.applicationduo.dto.ProductDto;
-import com.example.applicationduo.entity.CartEntity;
 import com.example.applicationduo.entity.ProductEntity;
+import com.example.applicationduo.exceptions.UserNotRegisteredException;
 import com.example.applicationduo.mappers.CartMapper;
 import com.example.applicationduo.mappers.ProductMapper;
+import com.example.applicationduo.model.CurrentUser;
 import com.example.applicationduo.service.CartService;
 import com.example.applicationduo.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
+
+import static java.util.Objects.isNull;
 
 
 @RequiredArgsConstructor
@@ -35,11 +38,14 @@ public class StoreController {
     @PostMapping("/addToCart/{idProduct}")
     public ModelAndView addToCart(@PathVariable("idProduct") Integer id,
                                   @RequestParam("quantity") Integer count) {
-
-        Optional<ProductEntity> product = productService.getById(id);
-        if (count <= product.get().getCount()) {
-            ProductEntity productEntity = product.get();
-            cartService.save(productEntity, count);
+        if(isNull(CurrentUser.entity)){
+            throw new UserNotRegisteredException();
+        }else {
+            Optional<ProductEntity> product = productService.getById(id);
+            if (count <= product.get().getCount()) {
+                ProductEntity productEntity = product.get();
+                cartService.save(productEntity, count);
+            }
         }
         return new ModelAndView("redirect:/store");
     }
