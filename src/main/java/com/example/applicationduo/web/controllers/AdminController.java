@@ -3,8 +3,6 @@ package com.example.applicationduo.web.controllers;
 
 import com.example.applicationduo.dto.ProductDto;
 import com.example.applicationduo.entity.ProductEntity;
-import com.example.applicationduo.mappers.ProductMapper;
-import com.example.applicationduo.mappers.UserMapper;
 import com.example.applicationduo.service.ProductService;
 import com.example.applicationduo.service.UserService;
 import jakarta.validation.Valid;
@@ -28,14 +26,11 @@ public class AdminController {
     private final ProductService productService;
     private final UserService userService;
 
-    private final UserMapper userMapper;
-    private final ProductMapper productMapper;
-
     @GetMapping
     public ModelAndView getTotalPage(@ModelAttribute("newProduct") ProductDto productDto) {
         ModelAndView modelAndView = new ModelAndView("adminPage");
-        modelAndView.addObject("users", userMapper.toListDto(userService.findAll()));
-        modelAndView.addObject("products", productMapper.toListDto(productService.findAll()));
+        modelAndView.addObject("users", userService.getMapper().toListDto(userService.findAll()));
+        modelAndView.addObject("products", productService.getMapper().toListDto(productService.findAll()));
         return modelAndView;
     }
 
@@ -46,9 +41,9 @@ public class AdminController {
         getTotalPage(dto);
         ModelAndView modelAndView = new ModelAndView("adminPage");
         if (isNotBlank(ascending)) {
-            modelAndView.addObject("products", productMapper.toListDto(productService.getAsc()));
+            modelAndView.addObject("products", productService.getMapper().toListDto(productService.getAsc()));
         } else if (isNotBlank(decreasing)) {
-            modelAndView.addObject("products", productMapper.toListDto(productService.getDesc()));
+            modelAndView.addObject("products", productService.getMapper().toListDto(productService.getDesc()));
         }
         return modelAndView;
     }
@@ -95,7 +90,7 @@ public class AdminController {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            productService.save(productMapper.toEntity(product));
+            productService.save(productService.getMapper().toEntity(product));
             return new ModelAndView("redirect:/admin");
         }
         return totalPage;
@@ -108,7 +103,7 @@ public class AdminController {
         var modelAndView = new ModelAndView("adminPage");
         if (isNotBlank(title)) {
             List<ProductEntity> byTitle = productService.getByTitle(title);
-            modelAndView.addObject("products", productMapper.toListDto(byTitle));
+            modelAndView.addObject("products", productService.getMapper().toListDto(byTitle));
         }
         return modelAndView;
     }
