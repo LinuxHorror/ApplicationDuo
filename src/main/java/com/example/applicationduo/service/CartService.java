@@ -18,7 +18,6 @@ import java.util.List;
 public class CartService {
     private final CartRepository repository;
     private final ProductMapper productMapper;
-    private final UserMapper userMapper;
 
     public void save(ProductEntity product, Integer count) {
         CartEntity cartEntity = productMapper.toCartEntity(product);

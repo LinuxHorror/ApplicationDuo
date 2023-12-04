@@ -56,9 +56,9 @@ public class CartController {
     @GetMapping("/sort")
     public ModelAndView getSortedPage() {
         ModelAndView modelAndView = shoppingCart();
-        List<ProductEntity> all = service.findAll();
+        List<ProductDto> all = service.findAll();
         all.sort(new ProductComparator());
-        modelAndView.addObject("products", service.getMapper().toListDto(all));
+        modelAndView.addObject("products", all);
         return modelAndView;
     }
 

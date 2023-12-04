@@ -27,7 +27,7 @@ public class StoreController {
     @GetMapping
     public ModelAndView mainPage(@ModelAttribute("product") ProductDto productDto) {
         var modelAndView = new ModelAndView("storePage");
-        modelAndView.addObject("products", productService.getMapper().toListDto(productService.findAll()));
+        modelAndView.addObject("products", productService.findAll());
         return modelAndView;
     }
 

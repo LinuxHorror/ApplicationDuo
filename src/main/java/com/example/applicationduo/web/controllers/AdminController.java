@@ -29,8 +29,8 @@ public class AdminController {
     @GetMapping
     public ModelAndView getTotalPage(@ModelAttribute("newProduct") ProductDto productDto) {
         ModelAndView modelAndView = new ModelAndView("adminPage");
-        modelAndView.addObject("users", userService.getMapper().toListDto(userService.findAll()));
-        modelAndView.addObject("products", productService.getMapper().toListDto(productService.findAll()));
+        modelAndView.addObject("users", userService.findAll());
+        modelAndView.addObject("products", productService.findAll());
         return modelAndView;
     }
 
@@ -41,9 +41,9 @@ public class AdminController {
         getTotalPage(dto);
         ModelAndView modelAndView = new ModelAndView("adminPage");
         if (isNotBlank(ascending)) {
-            modelAndView.addObject("products", productService.getMapper().toListDto(productService.getAsc()));
+            modelAndView.addObject("products", productService.getAsc());
         } else if (isNotBlank(decreasing)) {
-            modelAndView.addObject("products", productService.getMapper().toListDto(productService.getDesc()));
+            modelAndView.addObject("products", productService.getDesc());
         }
         return modelAndView;
     }
