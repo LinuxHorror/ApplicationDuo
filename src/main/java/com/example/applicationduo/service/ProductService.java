@@ -21,11 +21,11 @@ public class ProductService {
     private final ProductRepository repository;
     private final ProductMapper mapper;
 
-    public void save(ProductEntity product) {
-        repository.save(product);
+    public ProductEntity save(ProductEntity product) {
+        return repository.save(product);
     }
-    public List<ProductEntity> findAll(){
-        return repository.findAll();
+    public List<ProductDto> findAll(){
+        return mapper.toListDto(repository.findAll());
     }
     public Optional<ProductEntity> getById(Integer id){
         return repository.findById(id);
@@ -43,12 +43,12 @@ public class ProductService {
     }
 
     @Transactional
-    public List<ProductEntity> getDesc(){
-        return repository.findAllDesc();
+    public List<ProductDto> getDesc(){
+        return mapper.toListDto(repository.findAllDesc());
     }
     @Transactional
-    public List<ProductEntity> getAsc(){
-        return repository.findAllAsc();
+    public List<ProductDto> getAsc(){
+        return mapper.toListDto(repository.findAllAsc());
     }
     public void deleteAll(){
         repository.deleteAll();

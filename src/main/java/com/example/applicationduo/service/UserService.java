@@ -23,8 +23,8 @@ public class UserService {
         repository.save(user);
     }
 
-    public List<UserEntity> findAll() {
-        return repository.findAll();
+    public List<UserCreationDto> findAll() {
+        return mapper.toListDto(repository.findAll());
     }
 
     public Optional<UserEntity> getById(UUID id) {
