@@ -55,16 +55,12 @@
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4" >
                 <form th:method="post" th:action="@{/store/addToCart/{idProduct}(idProduct = ${product.getId()})}" th:each="product: ${products}">
                     <div class="card h-100">
-                        <!-- Product image-->
                         <img th:src="@{'data:image/png;base64,'+${product.getImageFromBytes()}}" class="card-img-top" style="width: 268px; height: 268px"
                              alt="...">
-                        <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
-                                <!-- Product name-->
                                 <h5 class="fw-bolder"><a class="card-text" th:text="${product.productTitle}"></a></h5>
                                 <p class="card-text" th:text="${product.description}"></p>
-                                <!-- Product price-->
                                 <p class="card-text" th:text="${product.price}"></p><br>
                                 <p class="card-text" th:text="${product.count}"></p>
                                 <label for="form1">
@@ -72,7 +68,6 @@
                                                                   class="form-control form-control-sm"/>
                             </div>
                         </div>
-                        <!-- Product actions-->
                         <button type="submit">В корзину</button>
                     </div>
                 </form>

@@ -29,7 +29,7 @@ public class LoginPageController {
         return new ModelAndView("loginPage");
     }
 
-    @PostMapping("/submit")
+  /*  @PostMapping("/submit")
     public ModelAndView enterData(@Valid @ModelAttribute("newUser") UserCreationDto dto,
                                   BindingResult result) {
         if (!result.hasFieldErrors()) {
@@ -38,12 +38,8 @@ public class LoginPageController {
                 var model = new ModelAndView("loginPage");
                 model.addObject("notFound", false);
                 return model;
-            } else {
-                Optional<UserEntity> user = service.findByPasswordAndEmail(dto);
-                CurrentUser.entity = user.get();
-                 return new ModelAndView("redirect:/store");
             }
         }
         return new ModelAndView("loginPage");
-    }
+    }*/
 }

@@ -18,11 +18,10 @@ public class UserCreationDto {
 
     private UUID id;
 
-    private String username;
+    private String role;
 
-    @Email(message = "wrong email")
     @NotBlank(message = "empty email")
-    private String email;
+    private String username;
 
     @NotBlank(message = "empty password")
     @Length(max = 15, message = "length of should be < 15")

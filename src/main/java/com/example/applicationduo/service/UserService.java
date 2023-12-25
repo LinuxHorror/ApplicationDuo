@@ -4,8 +4,12 @@ import com.example.applicationduo.dto.UserCreationDto;
 import com.example.applicationduo.entity.UserEntity;
 import com.example.applicationduo.mappers.UserMapper;
 import com.example.applicationduo.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,10 +19,16 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Getter
 @Repository
-public class UserService {
+public class UserService implements UserDetailsService {
     private final UserRepository repository;
     private final UserMapper mapper;
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return repository.findByUsername(username).orElse(null);
+    }
+
+    @Transactional
     public void save(UserEntity user) {
         repository.save(user);
     }
@@ -37,11 +47,11 @@ public class UserService {
 
     public boolean isExistsInDb(UserCreationDto dto) {
         return repository
-                .findByPasswordAndEmail(dto.getPassword(), dto.getEmail())
+                .findByUsername(dto.getUsername())
                 .isEmpty();
     }
     public Optional<UserEntity> findByPasswordAndEmail(UserCreationDto dto){
-        return repository.findByPasswordAndEmail(dto.getPassword(), dto.getEmail());
+        return repository.findByPasswordAndUsername(dto.getPassword(), dto.getUsername());
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.applicationduo.web.controllers;
+package com.example.applicationduo.exceptions.handlers;
 
 import com.example.applicationduo.exceptions.UserNotRegisteredException;
 import org.springframework.web.bind.annotation.ControllerAdvice;

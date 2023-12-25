@@ -20,7 +20,7 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository repository;
     private final ProductMapper mapper;
-
+    @Transactional
     public ProductEntity save(ProductEntity product) {
         return repository.save(product);
     }

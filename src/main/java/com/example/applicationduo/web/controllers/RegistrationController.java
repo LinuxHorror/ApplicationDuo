@@ -24,7 +24,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/save")
-    public ModelAndView validPage(@Valid @ModelAttribute("newUser") UserCreationDto user,
+    public ModelAndView validPage(@Valid @ModelAttribute("newUser") @RequestBody UserCreationDto user,
                                   BindingResult bindingResult,
                                   @RequestParam(name = "checkPassword") String checkPass) {
         var modelAndView = new ModelAndView("registration");

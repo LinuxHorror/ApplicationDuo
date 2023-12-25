@@ -19,6 +19,7 @@ public class CartService {
     private final CartRepository repository;
     private final ProductMapper productMapper;
 
+    @Transactional
     public void save(ProductEntity product, Integer count) {
         CartEntity cartEntity = productMapper.toCartEntity(product);
         cartEntity.setCount(count);
