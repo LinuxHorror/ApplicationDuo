@@ -16,7 +16,7 @@ import java.util.List;
 public interface UserMapper {
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     @Mapping(target = "role", defaultValue = "ROLE_ADMIN")
-    @Mapping(target = "password", expression = "java(encodePassword(dto.getPassword()))")
+    @Mapping(target = "password", expression = "java(encodePassword(dto))")
     @Mapping(target = "username", source = "username")
     UserEntity toEntity(UserCreationDto dto);
 
@@ -29,8 +29,7 @@ public interface UserMapper {
 
     List<UserCreationDto> toListDto(List<UserEntity> entities);
 
-    @AfterMapping
-    default String encodePassword(String source){
-        return encoder.encode(source);
+    default String encodePassword(UserCreationDto dto){
+        return encoder.encode(dto.getPassword());
     }
 }

@@ -12,8 +12,8 @@
         <thead>
         <tr>
             <th scope="col">№</th>
-            <th scope="col">Email</th>
             <th scope="col">Логин</th>
+            <th scope="col">Роль</th>
             <th scope="col">Пароль</th>
             <th scope="col">Удалить</th>
         </tr>
@@ -22,7 +22,7 @@
         <tr>
             <th scope="row" th:text="${count.count}"></th>
             <td th:text="${user.username}"/>
-            <td th:text="${user.username}"/>
+            <td th:text="${user.role}"/>
             <td th:text="${user.password}"/>
             <td>
                 <form th:action="@{admin/deleteCustomer/{idCustomer}(idCustomer = ${user.getId()})}" th:method="post">
