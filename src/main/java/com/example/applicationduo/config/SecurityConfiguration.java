@@ -32,6 +32,8 @@ public class SecurityConfiguration {
             customizer.requestMatchers(mvc.pattern("/store")).permitAll();
             customizer.requestMatchers(mvc.pattern("/login/**")).permitAll();
             customizer.requestMatchers(mvc.pattern("/registration/**")).permitAll();
+            customizer.requestMatchers(mvc.pattern("/store/cart/**")).authenticated();
+            customizer.requestMatchers(mvc.pattern("/store/addToCart/**")).authenticated();
             customizer.requestMatchers(mvc.pattern("/admin/**")).hasRole("ADMIN");
             customizer.anyRequest().permitAll();
         });
@@ -43,7 +45,7 @@ public class SecurityConfiguration {
             cust.usernameParameter("username");
             cust.passwordParameter("password");
             cust.successHandler((request, response, authentication) -> {
-                response.sendRedirect("/admin");
+                response.sendRedirect("/store");
             });
             cust.failureHandler((request, response, exception) -> {
                 response.sendRedirect("/login");

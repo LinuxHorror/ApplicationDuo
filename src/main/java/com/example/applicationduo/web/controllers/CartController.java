@@ -12,6 +12,8 @@ import com.example.applicationduo.service.CartService;
 import com.example.applicationduo.service.ProductService;
 import com.example.applicationduo.utils.ProductComparator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,10 +34,13 @@ public class CartController {
     @GetMapping
     public ModelAndView shoppingCart() throws UserNotRegisteredException {
         ModelAndView modelAndView = new ModelAndView("cartPage");
-        if (isNull(CurrentUser.entity)) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserEntity user = (UserEntity)authentication.getPrincipal();
+
+        /*if (isNull(CurrentUser.entity)) {
             throw new UserNotRegisteredException();
-        }
-        List<CartEntity> cart = CurrentUser.entity.getCart();
+        }*/
+        List<CartEntity> cart = user.getCart();
         List<ProductEntity> products = new ArrayList<>();
         for (CartEntity entity : cart) {
             ProductEntity productEntity = service.getById(entity.getProductId()).get();

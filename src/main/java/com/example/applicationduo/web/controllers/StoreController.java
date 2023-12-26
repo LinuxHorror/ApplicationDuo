@@ -34,9 +34,9 @@ public class StoreController {
     @PostMapping("/addToCart/{idProduct}")
     public ModelAndView addToCart(@PathVariable("idProduct") Integer id,
                                   @RequestParam("quantity") Integer count) throws UserNotRegisteredException {
-        if (isNull(CurrentUser.entity)) {
+        /*if (isNull(CurrentUser.entity)) {
             throw new UserNotRegisteredException();
-        }
+        }*/
         Optional<ProductEntity> product = productService.getById(id);
         if (count <= product.get().getCount()) {
             ProductEntity productEntity = product.get();
